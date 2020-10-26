@@ -17,12 +17,16 @@ namespace TravelApi.Controllers
     }
     // GET api/places
     [HttpGet]
-    public ActionResult<IEnumerable<Place>> Get(string name)
+    public ActionResult<IEnumerable<Place>> Get(string name, int rating)
     {
       var query = _db.Places.AsQueryable();
       if (name != null)
       {
-        query = query.Where(entry => entry.Name == name);
+        query = query.Where(entry => entry.Name == name); //contains will capture all instances with the name query = query.Where(entry => entry.Name.Contains(name));
+      }
+      if (rating != 0)
+      {
+        query = query.Where(entry => entry.Rating == rating);//contains will capture all instances with the name query = query.Where(entry => entry.Name.Contains(name));
       }
       return query.ToList();
     }
