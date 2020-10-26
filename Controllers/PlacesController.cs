@@ -20,6 +20,12 @@ namespace TravelApi.Controllers
     {
       return _db.Places.ToList();
     }
+    // GET api/places/5
+    [HttpGet("{id}")]
+    public ActionResult<Place> Get(int id)
+    {
+      return _db.Places.FirstOrDefault(entry => entry.PlaceId == id);
+    }
 
     // POST api/places
     [HttpPost]
