@@ -9,6 +9,6 @@ namespace TravelApi.Models
     public string Review { get; set; }
     public DateTime Date { get; set; }
 
-    public int rating { get; set; }
+    public int Rating { get; set; }
   }
 }

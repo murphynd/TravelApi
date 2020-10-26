@@ -17,9 +17,14 @@ namespace TravelApi.Controllers
     }
     // GET api/places
     [HttpGet]
-    public ActionResult<IEnumerable<Place>> Get()
+    public ActionResult<IEnumerable<Place>> Get(string name)
     {
-      return _db.Places.ToList();
+      var query = _db.Places.AsQueryable();
+      if (name != null)
+      {
+        query = query.Where(entry => entry.Name == name);
+      }
+      return query.ToList();
     }
     // GET api/places/5
     [HttpGet("{id}")]
