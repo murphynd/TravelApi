@@ -17,16 +17,24 @@ namespace TravelApi.Controllers
     }
     // GET api/places
     [HttpGet]
-    public ActionResult<IEnumerable<Place>> Get(string name, int rating)
+    public ActionResult<IEnumerable<Place>> Get(string landmark, int rating, string country, string city)
     {
       var query = _db.Places.AsQueryable();
-      if (name != null)
+      if (landmark != null)
       {
-        query = query.Where(entry => entry.Name == name); //contains will capture all instances with the name query = query.Where(entry => entry.Name.Contains(name));
+        query = query.Where(entry => entry.Landmark == landmark); //contains will capture all instances with the name query = query.Where(entry => entry.Name.Contains(name));
       }
       if (rating != 0)
       {
         query = query.Where(entry => entry.Rating == rating);//contains will capture all instances with the name query = query.Where(entry => entry.Name.Contains(name));
+      }
+      if (country != null)
+      {
+        query = query.Where(entry => entry.Country == country);//contains will capture all instances with the name query = query.Where(entry => entry.Name.Contains(name));
+      }
+      if (city != null)
+      {
+        query = query.Where(entry => entry.City == city);//contains will capture all instances with the name query = query.Where(entry => entry.Name.Contains(name));
       }
       return query.ToList();
     }

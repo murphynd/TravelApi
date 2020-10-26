@@ -7,9 +7,12 @@ namespace TravelApi.Models
     [Required]
     public int PlaceId { get; set; }
     [Required]
-    public string Name { get; set; }
+    public string Landmark { get; set; }
     [Required]
-
+    public string City { get; set; }
+    [Required]
+    public string Country { get; set; }
+    [Required]
     public string Review { get; set; }
     [Required]
     public DateTime Date { get; set; }

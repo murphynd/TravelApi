@@ -6,6 +6,14 @@ User Should:
 - GET and POST reviews about travel destinations.
 - GET reviews by country or city.
 - see the most popular travel destinations by number of reviews or by overall rating.
-- PUT and DELETE reviews, but only if I wrote them.
+- PUT and DELETE reviews, but only if USER wrote them.
   (Start by requiring a user_name param to match the user_name of the author on the message. You can always try authentication later.)
 - look up random destinations just for fun.
+
+Add to Places
+country
+user_name
+
+authenticate user to only mess with what they have written.
+
+search places (FOR FUN)

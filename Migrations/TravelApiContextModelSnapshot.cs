@@ -22,13 +22,21 @@ namespace TravelApi.Migrations
                     b.Property<int>("PlaceId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("City")
+                        .IsRequired();
+
+                    b.Property<string>("Country")
+                        .IsRequired();
+
                     b.Property<DateTime>("Date");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Landmark")
+                        .IsRequired();
 
                     b.Property<int>("Rating");
 
-                    b.Property<string>("Review");
+                    b.Property<string>("Review")
+                        .IsRequired();
 
                     b.HasKey("PlaceId");
 
@@ -38,41 +46,51 @@ namespace TravelApi.Migrations
                         new
                         {
                             PlaceId = -1,
-                            Date = new DateTime(2020, 10, 26, 11, 2, 18, 159, DateTimeKind.Local).AddTicks(8530),
-                            Name = "Las Vegas",
+                            City = "Las Vegas",
+                            Country = "USA",
+                            Date = new DateTime(2020, 10, 26, 14, 7, 12, 370, DateTimeKind.Local).AddTicks(5760),
+                            Landmark = "casino",
                             Rating = 7,
                             Review = "Hot"
                         },
                         new
                         {
                             PlaceId = -2,
-                            Date = new DateTime(2020, 10, 26, 11, 2, 18, 172, DateTimeKind.Local).AddTicks(2580),
-                            Name = "NYC",
+                            City = "NYC",
+                            Country = "USA",
+                            Date = new DateTime(2020, 10, 26, 14, 7, 12, 383, DateTimeKind.Local).AddTicks(5810),
+                            Landmark = "Empire State building",
                             Rating = 10,
                             Review = "Crowded"
                         },
                         new
                         {
                             PlaceId = -3,
-                            Date = new DateTime(2020, 10, 26, 11, 2, 18, 172, DateTimeKind.Local).AddTicks(2600),
-                            Name = "Portland",
+                            City = "Portland",
+                            Country = "USA",
+                            Date = new DateTime(2020, 10, 26, 14, 7, 12, 383, DateTimeKind.Local).AddTicks(5830),
+                            Landmark = "skidmore fountian",
                             Rating = 2,
                             Review = "Bridges"
                         },
                         new
                         {
                             PlaceId = -4,
-                            Date = new DateTime(2020, 10, 26, 11, 2, 18, 172, DateTimeKind.Local).AddTicks(2600),
-                            Name = "Seattle",
+                            City = "Seattle",
+                            Country = "USA",
+                            Date = new DateTime(2020, 10, 26, 14, 7, 12, 383, DateTimeKind.Local).AddTicks(5830),
+                            Landmark = "starbucks",
                             Rating = 4,
                             Review = "Hills"
                         },
                         new
                         {
                             PlaceId = -5,
+                            City = "Miami",
+                            Country = "USA",
                             Date = new DateTime(2020, 10, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            Name = "Miami",
-                            Rating = 22,
+                            Landmark = "art basil",
+                            Rating = 2,
                             Review = "Beaches"
                         });
                 });
