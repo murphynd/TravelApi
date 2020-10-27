@@ -17,3 +17,6 @@ user_name
 authenticate user to only mess with what they have written.
 
 search places (FOR FUN)
+
+For Docmuentation, run and visit:
+http://localhost:5003/swagger/index.html
