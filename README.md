@@ -24,3 +24,18 @@ http://localhost:5003/swagger/index.html
 get the most popuular
 random destination [x]
 require user name
+
+open Postman
+post: http://localhost:5003/users/authenticate
+select authorization
+slelect basic auth as type and enter:
+username: test
+password: test
+send get token
+
+go to
+get: http://localhost:5003/api/places
+select authorization
+change type to Bearer Token
+place token into box without ""
+send.

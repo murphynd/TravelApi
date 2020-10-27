@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using TravelApi.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TravelApi.Controllers
 {
+  [Authorize]
   [Route("api/[controller]")]
   [ApiController]
   public class PlacesController : ControllerBase

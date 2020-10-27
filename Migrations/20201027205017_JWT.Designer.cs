@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelApi.Models;
 
 namespace TravelApi.Migrations
 {
     [DbContext(typeof(TravelApiContext))]
-    partial class TravelApiContextModelSnapshot : ModelSnapshot
+    [Migration("20201027205017_JWT")]
+    partial class JWT
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +50,7 @@ namespace TravelApi.Migrations
                             PlaceId = -1,
                             City = "Las Vegas",
                             Country = "USA",
-                            Date = new DateTime(2020, 10, 27, 14, 5, 54, 250, DateTimeKind.Local).AddTicks(2090),
+                            Date = new DateTime(2020, 10, 27, 13, 50, 17, 482, DateTimeKind.Local).AddTicks(7700),
                             Landmark = "casino",
                             Rating = 7,
                             Review = "Hot"
@@ -58,7 +60,7 @@ namespace TravelApi.Migrations
                             PlaceId = -2,
                             City = "NYC",
                             Country = "USA",
-                            Date = new DateTime(2020, 10, 27, 14, 5, 54, 262, DateTimeKind.Local).AddTicks(6430),
+                            Date = new DateTime(2020, 10, 27, 13, 50, 17, 495, DateTimeKind.Local).AddTicks(2380),
                             Landmark = "Empire State building",
                             Rating = 10,
                             Review = "Crowded"
@@ -68,7 +70,7 @@ namespace TravelApi.Migrations
                             PlaceId = -3,
                             City = "Portland",
                             Country = "USA",
-                            Date = new DateTime(2020, 10, 27, 14, 5, 54, 262, DateTimeKind.Local).AddTicks(6450),
+                            Date = new DateTime(2020, 10, 27, 13, 50, 17, 495, DateTimeKind.Local).AddTicks(2390),
                             Landmark = "skidmore fountian",
                             Rating = 2,
                             Review = "Bridges"
@@ -78,7 +80,7 @@ namespace TravelApi.Migrations
                             PlaceId = -4,
                             City = "Seattle",
                             Country = "USA",
-                            Date = new DateTime(2020, 10, 27, 14, 5, 54, 262, DateTimeKind.Local).AddTicks(6460),
+                            Date = new DateTime(2020, 10, 27, 13, 50, 17, 495, DateTimeKind.Local).AddTicks(2400),
                             Landmark = "starbucks",
                             Rating = 4,
                             Review = "Hills"
@@ -92,30 +94,6 @@ namespace TravelApi.Migrations
                             Landmark = "art basil",
                             Rating = 2,
                             Review = "Beaches"
-                        });
-                });
-
-            modelBuilder.Entity("TravelApi.Models.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Password");
-
-                    b.Property<string>("Token");
-
-                    b.Property<string>("Username");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = -1,
-                            Password = "yoyoyo",
-                            Username = "NatDawg"
                         });
                 });
 #pragma warning restore 612, 618
