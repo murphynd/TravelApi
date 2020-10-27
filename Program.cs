@@ -14,10 +14,10 @@ namespace TravelApi
   {
     public static void Main(string[] args)
     {
-      CreateWebHostBuilder(args).Build().Run();
+      Builder(args).Build().Run();
     }
 
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+    public static IWebHostBuilder Builder(string[] args) =>
         WebHost.CreateDefaultBuilder(args)
             .UseStartup<Startup>()
             .UseUrls("http://localhost:5003");
