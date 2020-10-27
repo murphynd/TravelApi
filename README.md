@@ -20,3 +20,7 @@ search places (FOR FUN)
 
 For Docmuentation, run and visit:
 http://localhost:5003/swagger/index.html
+
+get the most popuular
+random destination [x]
+require user name
