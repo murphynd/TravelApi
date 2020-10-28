@@ -2,26 +2,32 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using TravelApi.Models;
+using TravelApi.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
 
 namespace TravelApi.Controllers
 {
-  [Authorize]
+  //[Authorize]
   [Route("api/[controller]")]
   [ApiController]
   public class PlacesController : ControllerBase
   {
     private TravelApiContext _db;
-    public PlacesController(TravelApiContext db)
+    private readonly IUriService uriService;
+    public PlacesController(TravelApiContext db, IUriService uriService)
     {
       _db = db;
+      this.uriService = uriService;
     }
     // GET api/places
     [HttpGet]
-    public ActionResult<IEnumerable<Place>> Get(string landmark, int rating, string country, string city)
+    public async Task<IActionResult> GetAll([FromQuery] PaginationFilter filter, string landmark, int rating, string country, string city)
     {
+      var route = Request.Path.Value;
+      var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
       var query = _db.Places.AsQueryable();
       if (landmark != null)
       {
@@ -39,13 +45,47 @@ namespace TravelApi.Controllers
       {
         query = query.Where(entry => entry.City == city);//contains will capture all instances with the name query = query.Where(entry => entry.Name.Contains(name));
       }
-      return query.ToList();
+      query = query.Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+      .Take(validFilter.PageSize);
+      // .ToListAsync();
+      var totalRecords = await _db.Places.CountAsync();
+      var pagedResponse = PaginationHelper.CreatePagedReponse<Place>(query.ToList(), validFilter, totalRecords, uriService, route);
+      return Ok(pagedResponse);
     }
+    //GET api/places
+    // [HttpGet]
+    // public ActionResult<IEnumerable<Place>> Get(string landmark, int rating, string country, string city)
+    // {
+    //   var query = _db.Places.AsQueryable();
+    //   if (landmark != null)
+    //   {
+    //     query = query.Where(entry => entry.Landmark == landmark); //contains will capture all instances with the name query = query.Where(entry => entry.Name.Contains(name));
+    //   }
+    //   if (rating != 0)
+    //   {
+    //     query = query.Where(entry => entry.Rating == rating);//contains will capture all instances with the name query = query.Where(entry => entry.Name.Contains(name));
+    //   }
+    //   if (country != null)
+    //   {
+    //     query = query.Where(entry => entry.Country == country);//contains will capture all instances with the name query = query.Where(entry => entry.Name.Contains(name));
+    //   }
+    //   if (city != null)
+    //   {
+    //     query = query.Where(entry => entry.City == city);//contains will capture all instances with the name query = query.Where(entry => entry.Name.Contains(name));
+    //   }
+    //   return query.ToList();
+    // }
     //GET api/places/5
+    // [HttpGet("{id}")]
+    // public ActionResult<Place> Get(int id)
+    // {
+    //   return _db.Places.FirstOrDefault(entry => entry.PlaceId == id);
+    // }
     [HttpGet("{id}")]
-    public ActionResult<Place> Get(int id)
+    public async Task<IActionResult> GetById(int id)
     {
-      return _db.Places.FirstOrDefault(entry => entry.PlaceId == id);
+      var place = await _db.Places.Where(a => a.PlaceId == id).FirstOrDefaultAsync();
+      return Ok(new Response<Place>(place));
     }
     //example query: http://localhost:5003/api/Places/best?rating=5
     [HttpGet("best")]

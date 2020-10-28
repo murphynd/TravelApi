@@ -5,9 +5,14 @@ namespace TravelApi.Models
 {
   public class TravelApiContext : DbContext
   {
+    public TravelApiContext()
+    {
+
+    }
     public TravelApiContext(DbContextOptions<TravelApiContext> options)
         : base(options)
     {
+
     }
 
     public DbSet<Place> Places { get; set; }

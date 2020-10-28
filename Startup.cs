@@ -14,6 +14,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Configuration;
+using Microsoft.AspNetCore.Http;
 
 
 namespace TravelApi
@@ -55,6 +56,15 @@ namespace TravelApi
           ValidateIssuer = false,
           ValidateAudience = false
         };
+      });
+      //Generating Pagination URLs
+      services.AddHttpContextAccessor();
+      services.AddSingleton<IUriService>(o =>
+      {
+        var accessor = o.GetRequiredService<IHttpContextAccessor>();
+        var request = accessor.HttpContext.Request;
+        var uri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent());
+        return new UriService(uri);
       });
       services.AddScoped<IUserService, UserService>();
     }
