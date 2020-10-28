@@ -24,7 +24,7 @@ namespace TravelApi.Controllers
     }
     // GET api/places
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] PaginationFilter filter, string landmark, int rating, string country, string city)
+    public async Task<IActionResult> GetAll([FromQuery] PaginationFilter filter, string landmark, int AverageRating, string country, string city)
     {
       var route = Request.Path.Value;
       var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
@@ -33,9 +33,9 @@ namespace TravelApi.Controllers
       {
         query = query.Where(entry => entry.Landmark == landmark); //contains will capture all instances with the name query = query.Where(entry => entry.Name.Contains(name));
       }
-      if (rating != 0)
+      if (AverageRating != 0)
       {
-        query = query.Where(entry => entry.Rating == rating);//contains will capture all instances with the name query = query.Where(entry => entry.Name.Contains(name));
+        query = query.Where(entry => entry.AverageRating == AverageRating);//contains will capture all instances with the name query = query.Where(entry => entry.Name.Contains(name));
       }
       if (country != null)
       {
@@ -45,7 +45,7 @@ namespace TravelApi.Controllers
       {
         query = query.Where(entry => entry.City == city);//contains will capture all instances with the name query = query.Where(entry => entry.Name.Contains(name));
       }
-      query = query.Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+      query = query.Skip((validFilter.PageNumber - 1) * validFilter.PageSize).Include(x => x.Reviews)
       .Take(validFilter.PageSize);
       // .ToListAsync();
       var totalRecords = await _db.Places.CountAsync();
@@ -84,15 +84,15 @@ namespace TravelApi.Controllers
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-      var place = await _db.Places.Where(a => a.PlaceId == id).FirstOrDefaultAsync();
+      var place = await _db.Places.Where(a => a.PlaceId == id).Include(x => x.Reviews).FirstOrDefaultAsync();
       return Ok(new Response<Place>(place));
     }
     //example query: http://localhost:5003/api/Places/best?rating=5
     [HttpGet("best")]
-    public ActionResult<IEnumerable<Place>> BestAbove(int rating)
+    public ActionResult<IEnumerable<Place>> BestAbove(int AverageRating)
     {
       var query = _db.Places.AsQueryable();
-      query = query.Where(entry => entry.Rating >= rating);
+      query = query.Where(entry => entry.AverageRating >= AverageRating).Include(x => x.Reviews);
       return query.ToList();
     }
     //GET api/places/random
@@ -102,18 +102,18 @@ namespace TravelApi.Controllers
       int count = _db.Places.Count();
       int index = new Random().Next(count);
 
-      return _db.Places.Skip(index).FirstOrDefault();
+      return _db.Places.Skip(index).Include(x => x.Reviews).FirstOrDefault();
     }
     //GET api/places/bestcity
     [HttpGet("bestcity")]
-    public ActionResult<List<test>> BestCity()
+    public ActionResult<List<Place>> BestCity()
     {
-      var bestCity = _db.Places.GroupBy(x => new { City = x.City }).Select(x => new test
-      {
-        Average = x.Average(y => y.Rating).ToString(),
-        City = x.Key.City
-      });
-      return bestCity.OrderByDescending(x => Convert.ToDouble(x.Average)).ToList();
+      // var bestCity = _db.Places.GroupBy(x => new { City = x.City }).Select(x => new test
+      // {
+      //   Average = x.Average(y => y.AverageRating).ToString(),
+      //   City = x.Key.City
+      // });
+      return _db.Places.OrderByDescending(x => x.AverageRating).Include(x => x.Reviews).ToList();
 
       //return "null";
     }
@@ -123,6 +123,7 @@ namespace TravelApi.Controllers
     public void Post([FromBody] Place place)
     {
       place.City = place.City.ToLower();
+      place.AverageRating = 0;
       _db.Places.Add(place);
       _db.SaveChanges();
     }
@@ -131,6 +132,16 @@ namespace TravelApi.Controllers
     public void Put(int id, [FromBody] Place place)
     {
       place.PlaceId = id;
+      if (place.Reviews.Count() != 0)
+      {
+        double averageRating = place.Reviews.Average(y => y.Rating);
+        place.AverageRating = averageRating;
+      }
+      else
+      {
+        place.AverageRating = 0;
+      }
+
       _db.Entry(place).State = EntityState.Modified;
       _db.SaveChanges();
     }
