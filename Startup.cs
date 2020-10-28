@@ -10,10 +10,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using TravelApi.Models;
 using Microsoft.EntityFrameworkCore;
-using Swashbuckle.AspNetCore.Swagger;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using System.Configuration;
 using Microsoft.AspNetCore.Http;
 
 

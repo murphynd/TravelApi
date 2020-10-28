@@ -15,10 +15,10 @@
     <p align="center">
         <a href="https://github.com/Murphynd">
             <strong>Murphynd</strong>
-        </a>
+        </a> -
         <a href="https://github.com/wattsjmichael">
             <strong>Wattsjmichael</strong>
-        </a>
+        </a>- 
         <a href="https://github.com/jbnilles">
             <strong>Jbnilles</strong>
         </a>
@@ -198,14 +198,14 @@ Explore the API endpoints in Postman or a browser. You will not be able to utili
 
 ### Using Swagger Documentation
 
-To explore the CoffeeTracker API with NSwag, launch the project using `dotnet run` with the Terminal or Powershell, and input the following URL into your browser: `http://localhost:5003/swagger/index.html`
+To explore the Travel API with NSwag, launch the project using `dotnet run` with the Terminal or Powershell, and input the following URL into your browser: `http://localhost:5003/swagger/index.html`
 
 ### Using the JSON Web Token
 
 In order to be authorized to use the POST, PUT, DELETE functionality of the API, please authenticate yourself through Postman.
 
-- Open Postman and create a POST request using the URL: `http://localhost:5003/api/users/authenticate`
-- Add the following query to the request as raw data in the Body tab:
+- Open Postman and create a POST request using the URL: `http://localhost:5003/users/authenticate`
+- Add the following query to the request as raw data and select JSON in the Body tab:
 
 ```
 {
@@ -215,6 +215,8 @@ In order to be authorized to use the POST, PUT, DELETE functionality of the API,
 ```
 
 - The token will be generated in the response. Copy and paste it as the Token paramenter in the Authorization tab.
+- Select Type: Bearer Token
+- Now you can do a call
 
 ### Note on Pagination
 
@@ -225,7 +227,7 @@ To modify this, use the query parameters `pageLimit` and `pageNumber` to alter t
 #### Example Query
 
 ```
-https://localhost:5003/api/places/?name=city&pageLimit=50&pageNumber=5
+http://localhost:5003/api/places/?city=seattle&pageLimit=50&pageNumber=1
 ```
 
 To use default, _don't include_ `pageLimit` and `pageNumber` or set them equal to zero.
@@ -234,7 +236,7 @@ To use default, _don't include_ `pageLimit` and `pageNumber` or set them equal t
 
 ### Endpoints
 
-Base URL: `https://localhost:5003`
+Base URL: `http://localhost:5003`
 
 ### Places
 
@@ -262,7 +264,7 @@ DELETE /api/places/{id}
 #### Example Query
 
 ```
-https://localhost:5000/api/places/?city=seattle&country=usa
+http://localhost:5003/api/places/?city=seattle&country=usa
 ```
 
 #### Sample JSON Response
@@ -300,12 +302,8 @@ https://localhost:5000/api/places/?city=seattle&country=usa
 
 | Author                                                       |                      GitHub                       |                           Email                            |
 | ------------------------------------------------------------ | :-----------------------------------------------: | :--------------------------------------------------------: |
-| [Natlie Murphy](https://linkedin.com/in/nataliedoraismurphy) |   [Natalie Murphy](https://github.com/muprhynd)   | [lunsford.sk@gmail.com](mailto:nataliemurphy500@gmail.com) |
-| Author                                                       |                      GitHub                       |                           Email                            |
-| ----------------------------------------------------         |     :---------------------------------------:     |   :---------------------------------------------------:    |
+| [Natlie Murphy](https://linkedin.com/in/nataliedoraismurphy) |   [Natalie Murphy](https://github.com/murphynd)   | [lunsford.sk@gmail.com](mailto:nataliemurphy500@gmail.com) |
 | [Michael Watts](https://linkedin.com/in/wattsjmichael)       | [Michael Watts](https://github.com/wattsjmichael) | [wattsjmichael@gmail.com](mailto:wattsjmichael@gmail.com)  |
-| Author                                                       |                      GitHub                       |                           Email                            |
-| ----------------------------------------------------         |     :---------------------------------------:     |   :---------------------------------------------------:    |
 | [Joesph Nilles](https://linkedin.com/in/joseph-nilles)       |   [Joesph Nilles](https://github.com/jbnilles)    |    [jbnilles24@gmail.com](mailto:jbnilles24@gmail.com)     |
 
 ---

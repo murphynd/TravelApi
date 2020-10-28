@@ -28,10 +28,6 @@ namespace TravelApi.Models
               new Place { PlaceId = -4, Landmark = "starbucks", City = "Seattle", Country = "USA", Review = "Hills", Date = DateTime.Now, Rating = 4 },
               new Place { PlaceId = -5, Landmark = "art basil", City = "Miami", Country = "USA", Review = "Beaches", Date = DateTime.Today, Rating = 2 }
           );
-      builder.Entity<User>()
-      .HasData(
-        new User { Id = -1, Username = "NatDawg", Password = "yoyoyo" }
-      );
     }
   }
 }
